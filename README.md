@@ -10,6 +10,7 @@ Template including the project setup for smart contract development including:
 * Examples of integration testing the smart contract ERC20 (Token transfer, balance, deployment, Events and Log Processing)
 * Examples of integration testing Ether transfers
 
+![Screenshot](screenshots/quickdemotemplate.gif)
 
 ## Installation locally
 
