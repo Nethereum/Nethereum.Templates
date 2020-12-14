@@ -42,7 +42,7 @@ namespace WonkaDeFi.Wonka
 
       <if description="""">
            <criteria op=""OR"">
-               <eval id=""chk1"">(N.VaultYieldRate) GT (0.1)</eval>
+               <eval id=""chk1"">(O.VaultYieldRate) GT (0.1)</eval>
            </criteria>
 
            <validate err=""severe"">
@@ -60,7 +60,6 @@ namespace WonkaDeFi.Wonka
 </RuleTree>
 ";
 
-        public const string CONST_ONLINE_TEST_CHAIN_URL         = "http://testchain.nethereum.com:8545";
 		public const string CONST_INFURA_IPFS_GATEWAY_URL       = "https://ipfs.infura.io/ipfs";
         public const string CONST_INFURA_IPFS_WRITE_GATEWAY_URL = "https://ipfs.infura.io:5001";
 
@@ -68,17 +67,8 @@ namespace WonkaDeFi.Wonka
         public const string CONST_CONTRACT_FUNCTION_GET_LAST_RPT = "getLastRuleReport";
 
 		private readonly bool mbInitChainEnv;
-		private readonly bool mbRetrieveMarkupFromIpfs;
 
 		private string msContractAddress;
-        private string msAbiWonka;
-        private string msByteCodeWonka;
-        private string msAbiRegistry;
-        private string msByteCodeRegistry;
-        private string msAbiOrchTest;
-        private string msByteCodeOrchTest;
-        private string msAbiChronoLog;
-        private string msByteCodeChronoLog;
 
         private string                             msRulesContents  = null;
         private IMetadataRetrievable               moMetadataSource = null;
@@ -86,10 +76,6 @@ namespace WonkaDeFi.Wonka
 
         private string msSenderAddress           = "";
         private string msPassword                = "";
-        private string msEngineContractAddress   = "";
-        private string msRegistryContractAddress = "";
-        private string msTestContractAddress     = "";
-        private string msChronoLogAddress        = "";
 
 		private WonkaEthEngineInitialization moEthEngineInit = null;
 
@@ -106,15 +92,6 @@ namespace WonkaDeFi.Wonka
 
 			mbInitChainEnv     = pbInitChainEnv;
 			msContractAddress  = psContractAddress;
-
-            msAbiWonka          = WonkaEngineDeploymentClassic.ABI;
-            msByteCodeWonka     = WonkaEngineDeploymentClassic.BYTECODE;
-            msAbiRegistry       = WonkaRegistryDeployment.ABI;
-            msByteCodeRegistry  = WonkaRegistryDeployment.BYTECODE;
-            msAbiOrchTest       = WonkaTestContractDeployment.ABI;
-            msByteCodeOrchTest  = WonkaTestContractDeployment.BYTECODE;
-            msAbiChronoLog      = ChronoLogDeployment.ABI;
-            msByteCodeChronoLog = ChronoLogDeployment.BYTECODE;
 
             // Create an instance of the class that will provide us with PmdRefAttributes (i.e., the data domain)
             // that define our data record, if one is not provided
@@ -149,15 +126,6 @@ namespace WonkaDeFi.Wonka
 
 			mbInitChainEnv     = pbInitChainEnv;
 			msContractAddress  = psContractAddress;
-
-            msAbiWonka          = WonkaEngineDeploymentClassic.ABI;
-            msByteCodeWonka     = WonkaEngineDeploymentClassic.BYTECODE;
-            msAbiRegistry       = WonkaRegistryDeployment.ABI;
-            msByteCodeRegistry  = WonkaRegistryDeployment.BYTECODE;
-            msAbiOrchTest       = WonkaTestContractDeployment.ABI;
-            msByteCodeOrchTest  = WonkaTestContractDeployment.BYTECODE;
-            msAbiChronoLog      = ChronoLogDeployment.ABI;
-            msByteCodeChronoLog = ChronoLogDeployment.BYTECODE;
 
             // Create an instance of the class that will provide us with PmdRefAttributes (i.e., the data domain)
             // that define our data record, if one is not provided
@@ -231,31 +199,17 @@ namespace WonkaDeFi.Wonka
 
             /*
             WonkaBizSource TempSource =
-    new WonkaBizSource(poEngineInitData.StorageDefaultSourceId,
-                       poEngineInitData.EthSenderAddress,
-                       poEngineInitData.EthPassword,
-                       poEngineInitData.StorageContractAddress,
-                       poEngineInitData.StorageContractABI,
-                       poEngineInitData.StorageGetterMethod,
-                       poEngineInitData.StorageSetterMethod,
-                       EngineProps.DotNetRetrieveMethod);
+                new WonkaBizSource(poEngineInitData.StorageDefaultSourceId,
+                                   poEngineInitData.EthSenderAddress,
+                                   poEngineInitData.EthPassword,
+                                   poEngineInitData.StorageContractAddress,
+                                   poEngineInitData.StorageContractABI,
+                                   poEngineInitData.StorageGetterMethod,
+                                   poEngineInitData.StorageSetterMethod,
+                                   EngineProps.DotNetRetrieveMethod);
             */
 
             return SourceMap;
-        }
-
-        public Nethereum.Web3.Web3 GetWeb3(string psUrl = CONST_ONLINE_TEST_CHAIN_URL)
-        {
-            var account = new Account(msPassword);
-
-			Nethereum.Web3.Web3 web3 = null;
-
-			if (!String.IsNullOrEmpty(psUrl))
-                web3 = new Nethereum.Web3.Web3(account, psUrl);
-			else
-				web3 = new Nethereum.Web3.Web3(account);
-
-			return web3;
         }
 
         private async Task<bool> InitEngineAsync(bool pbInitChainEnv)
@@ -269,26 +223,8 @@ namespace WonkaDeFi.Wonka
 			moEthEngineInit.Engine.DotNetRetrieveMethod = RetrieveValueMethod;
 			moEthEngineInit.EthSenderAddress            = moEthEngineInit.EthRuleTreeOwnerAddress = msSenderAddress;
 			moEthEngineInit.EthPassword                 = msPassword;
-			moEthEngineInit.Web3HttpUrl                 = CONST_ONLINE_TEST_CHAIN_URL;
+			// moEthEngineInit.Web3HttpUrl                 = CONST_ONLINE_TEST_CHAIN_URL;
             moEthEngineInit.ERC20ContractAddress        = msContractAddress;
-
-            /*
-             * NOTE: Not needed for now
-             * 
-			string sDefaultSource = "S";
-
-            moEthEngineInit.Engine.RulesEngine          = moRulesEngine;
-            moEthEngineInit.RulesEngineContractAddress  = msEngineContractAddress;
-            moEthEngineInit.RegistryContractAddress     = msRegistryContractAddress;
-            moEthEngineInit.ChronoLogContractAddress    = msChronoLogAddress;
-			moEthEngineInit.StorageContractAddress      = msTestContractAddress;
-			moEthEngineInit.StorageDefaultSourceId      = sDefaultSource;
-			moEthEngineInit.StorageContractABI          = msAbiOrchTest;
-			moEthEngineInit.StorageGetterMethod         = "getAttrValueBytes32";
-			moEthEngineInit.StorageSetterMethod         = "setAttrValueBytes32";
-			moEthEngineInit.UsingStorageContract        = false;
-			moEthEngineInit.UsingTrxStateContract       = false;
-            */
 
             if ((moSourceMap == null) && (moSourceMap.Count > 0))
                 moSourceMap = GetDefaultSourceMap();
@@ -316,7 +252,19 @@ namespace WonkaDeFi.Wonka
 
         public string RetrieveValueMethod(WonkaBizSource poTargetSource, string psAttrName)
         {
-			return poTargetSource.GetAttrValue(psAttrName, CONST_ONLINE_TEST_CHAIN_URL);
+            string sValue = "";
+
+            if (psAttrName != "VaultYieldRate")
+            {
+                sValue = poTargetSource.GetAttrValue(psAttrName);
+            }
+            // NOTE: Only useful in case of demo
+            else
+            {
+                sValue = "0.12";
+            }
+
+            return sValue;
 		}
 
     }
