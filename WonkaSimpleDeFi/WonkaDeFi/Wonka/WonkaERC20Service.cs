@@ -10,14 +10,6 @@ using Nethereum.Web3.Accounts;
 using Wonka.BizRulesEngine;
 using Wonka.BizRulesEngine.Reporting;
 using Wonka.BizRulesEngine.RuleTree;
-using Wonka.BizRulesEngine.Samples;
-using Wonka.BizRulesEngine.Writers;
-using Wonka.Eth;
-using Wonka.Eth.Autogen;
-using Wonka.Eth.Autogen.WonkaEngine;
-using Wonka.Eth.Autogen.WonkaRegistry;
-using Wonka.Eth.Autogen.WonkaTestContract;
-using Wonka.Eth.Autogen.ChronoLog;
 using Wonka.Eth.Init;
 using Wonka.Eth.Extensions;
 using Wonka.MetaData;
@@ -43,6 +35,7 @@ namespace WonkaDeFi.Wonka
       <if description="""">
            <criteria op=""OR"">
                <eval id=""chk1"">(O.VaultYieldRate) GT (0.1)</eval>
+               <eval id=""chk2"">(N.AccountCurrValue) GE (N.TokenTransferAmt)</eval>
            </criteria>
 
            <validate err=""severe"">
@@ -82,7 +75,7 @@ namespace WonkaDeFi.Wonka
 		public WonkaERC20Service(string psSenderAddress, 
                                  string psPassword, 
                                  string psContractAddress,
-                                 string psRulesContentsHttpUrl = null,
+                                 string psRulesContentsHttpUrl,
                    IMetadataRetrievable poMetadata = null,
      Dictionary<string, WonkaBizSource> poSourceMap = null,
                                    bool pbInitChainEnv = false)
@@ -159,35 +152,24 @@ namespace WonkaDeFi.Wonka
             return bResult;
 		}
 
-        public async Task<bool> Execute(WonkaProduct poNewTrxRecord)
+        public bool Execute(WonkaProduct poNewTrxRecord)
         {
 			bool bResult = false;
 
-            var RefEnv      = WonkaRefEnvironment.GetInstance();
 			var RulesEngine = moEthEngineInit.Engine.RulesEngine;
-			var SourceMap   = moEthEngineInit.Engine.SourceMap;
-
-            WonkaRefAttr AccountStsAttr = RefEnv.GetAttributeByAttrName("AccountStatus");
-            WonkaRefAttr RvwFlagAttr    = RefEnv.GetAttributeByAttrName("AuditReviewFlag");
-
-            string sStatusValueBefore = poNewTrxRecord.GetAttributeValue(AccountStsAttr);
-            string sFlagValueBefore   = poNewTrxRecord.GetAttributeValue(RvwFlagAttr);
 
             // Validate that the .NET implementation and the rules markup are both working properly
             WonkaBizRuleTreeReport Report = RulesEngine.Validate(poNewTrxRecord);
 
-            string sStatusValueAfter = poNewTrxRecord.GetAttributeValue(AccountStsAttr);
-            string sFlagValueAfter   = poNewTrxRecord.GetAttributeValue(RvwFlagAttr);
-
             if (Report.OverallRuleTreeResult == ERR_CD.CD_SUCCESS)
-            {
-                // NOTE: This should only be used for further testing
-                // Serialize(NewProduct);
-            }
+                bResult = true;
             else if (Report.GetRuleSetFailureCount() > 0)
-                System.Console.WriteLine(".NET Engine says \"Oh heavens to Betsy! Something bad happened!\"");
+            {
+                bResult = false;
+                // NOTE: Notification about the error should be returned
+            }
             else
-                System.Console.WriteLine(".NET Engine says \"What in the world is happening?\"");
+                bResult = false;
 
 			return bResult;
         }
