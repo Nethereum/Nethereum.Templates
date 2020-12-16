@@ -22,8 +22,7 @@ namespace WonkaDeFi.Wonka
     {
 
         public const string CONST_DEFAULT_WONKA_DEFI_RULES =
-@"
-<?xml version=""1.0""?>
+@"<?xml version=""1.0""?>
 <RuleTree xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
 
    <if description=""Move Tokens to Vault"">
@@ -132,8 +131,6 @@ namespace WonkaDeFi.Wonka
                 msRulesContents = poRulesContentsBuilder.ToString();
             }
 
-            WonkaRefEnvironment.CreateInstance(false, moMetadataSource);
-
             var bInitSuccess = Init().Result;
 		}
 
@@ -146,6 +143,8 @@ namespace WonkaDeFi.Wonka
 
             if (moMetadataSource == null)
                 moMetadataSource = new WonkaDeFiDefaultMetadata();
+
+            WonkaRefEnvironment.CreateInstance(false, moMetadataSource);
 
             await InitEngineAsync(mbInitChainEnv).ConfigureAwait(false);
 
@@ -208,7 +207,7 @@ namespace WonkaDeFi.Wonka
 			// moEthEngineInit.Web3HttpUrl                 = CONST_ONLINE_TEST_CHAIN_URL;
             moEthEngineInit.ERC20ContractAddress        = msContractAddress;
 
-            if ((moSourceMap == null) && (moSourceMap.Count > 0))
+            if ((moSourceMap == null) || (moSourceMap.Count <= 0))
                 moSourceMap = GetDefaultSourceMap();
 
             moEthEngineInit.Engine.RulesEngine =
