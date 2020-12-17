@@ -128,13 +128,17 @@ namespace WonkaDeFi.Testing
             var trxData = new WonkaProduct();
             trxData.SetAttribute(OwnerAddressAttr, ownerAddress);
             trxData.SetAttribute(VaultAddressAttr, destinationAddress);
-            trxData.SetAttribute(TokenTrxAmtAttr,  "10");
+            trxData.SetAttribute(TokenTrxAmtAttr,  "12"); // Must specify the amount in hex form
+
+            var ownerBalance = await tokenService.BalanceOfQueryAsync(ownerAddress);
+
+            var beforeBalance = await tokenService.BalanceOfQueryAsync(destinationAddress);
 
             wonkaERC20Service.Execute(trxData);
 
-            //validate the current balance
-            var balance = await tokenService.BalanceOfQueryAsync(destinationAddress);
-            Assert.Equal(10, Web3.Convert.FromWei(balance));
+            //validate the current balance (in decimal form)
+            var afterBalance = await tokenService.BalanceOfQueryAsync(destinationAddress);
+            Assert.Equal(18, afterBalance);
         }
 
     }

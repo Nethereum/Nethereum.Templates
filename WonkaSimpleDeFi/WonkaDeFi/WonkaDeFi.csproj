@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Nethereum.StandardTokenEIP20" Version="3.8.0" />
         <PackageReference Include="Nethereum.Web3" Version="3.8.0" />
     </ItemGroup>
 
