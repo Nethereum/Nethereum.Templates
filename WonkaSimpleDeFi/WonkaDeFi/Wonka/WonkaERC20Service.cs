@@ -68,6 +68,7 @@ namespace WonkaDeFi.Wonka
 
         private string msSenderAddress           = "";
         private string msPassword                = "";
+        private string msWeb3HttpUrl             = "";
 
 		private WonkaEthEngineInitialization moEthEngineInit = null;
 
@@ -77,10 +78,12 @@ namespace WonkaDeFi.Wonka
                                  string psRulesContentsHttpUrl,
                    IMetadataRetrievable poMetadata = null,
      Dictionary<string, WonkaBizSource> poSourceMap = null,
-                                   bool pbInitChainEnv = false)
+                                   bool pbInitChainEnv = false,
+                                 string psWeb3HttpUrl = null)
         {
             msSenderAddress = psSenderAddress;
             msPassword      = psPassword;
+            msWeb3HttpUrl   = psWeb3HttpUrl;
 
 			mbInitChainEnv     = pbInitChainEnv;
 			msContractAddress  = psContractAddress;
@@ -111,10 +114,12 @@ namespace WonkaDeFi.Wonka
                           StringBuilder poRulesContentsBuilder = null,
                    IMetadataRetrievable poMetadata = null,
      Dictionary<string, WonkaBizSource> poSourceMap = null,
-                                   bool pbInitChainEnv = false)
+                                   bool pbInitChainEnv = false,
+                                 string psWeb3HttpUrl = null)
         {
             msSenderAddress = psSenderAddress;
             msPassword      = psPassword;
+            msWeb3HttpUrl   = psWeb3HttpUrl;
 
 			mbInitChainEnv     = pbInitChainEnv;
 			msContractAddress  = psContractAddress;
@@ -204,8 +209,10 @@ namespace WonkaDeFi.Wonka
 			moEthEngineInit.Engine.DotNetRetrieveMethod = RetrieveValueMethod;
 			moEthEngineInit.EthSenderAddress            = moEthEngineInit.EthRuleTreeOwnerAddress = msSenderAddress;
 			moEthEngineInit.EthPassword                 = msPassword;
-			// moEthEngineInit.Web3HttpUrl                 = CONST_ONLINE_TEST_CHAIN_URL;
             moEthEngineInit.ERC20ContractAddress        = msContractAddress;
+
+            if (!String.IsNullOrEmpty(msWeb3HttpUrl))
+                moEthEngineInit.Web3HttpUrl = msWeb3HttpUrl;
 
             if ((moSourceMap == null) || (moSourceMap.Count <= 0))
                 moSourceMap = GetDefaultSourceMap();
