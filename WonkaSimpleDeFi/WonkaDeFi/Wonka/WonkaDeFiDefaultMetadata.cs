@@ -6,7 +6,7 @@ using Wonka.MetaData;
 
 namespace WonkaDeFi.Wonka
 {
-    class WonkaDeFiDefaultMetadata : IMetadataRetrievable
+    public class WonkaDeFiDefaultMetadata : IMetadataRetrievable
     {
         public WonkaDeFiDefaultMetadata()
         { }
