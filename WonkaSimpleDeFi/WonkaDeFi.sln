@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WonkaDeFi.Testing", "WonkaD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.XUnitEthereumClients", "Nethereum.XUnitEthereumClients\Nethereum.XUnitEthereumClients.csproj", "{99B9FC6D-7E46-4EE0-86DB-AD3651285FDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WonkaDeFiConsoleApp", "WonkaDeFiConsoleApp\WonkaDeFiConsoleApp.csproj", "{65E30F94-8172-45D4-9ACA-4F358A09DC4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{99B9FC6D-7E46-4EE0-86DB-AD3651285FDD}.Release|x64.Build.0 = Release|Any CPU
 		{99B9FC6D-7E46-4EE0-86DB-AD3651285FDD}.Release|x86.ActiveCfg = Release|Any CPU
 		{99B9FC6D-7E46-4EE0-86DB-AD3651285FDD}.Release|x86.Build.0 = Release|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Debug|x64.Build.0 = Debug|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Debug|x86.Build.0 = Debug|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Release|x64.ActiveCfg = Release|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Release|x64.Build.0 = Release|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Release|x86.ActiveCfg = Release|Any CPU
+		{65E30F94-8172-45D4-9ACA-4F358A09DC4C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

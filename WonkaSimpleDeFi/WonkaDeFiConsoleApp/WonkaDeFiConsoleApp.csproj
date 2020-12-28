@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WonkaDeFi\WonkaDeFi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Wonka.BizRulesEngine">
+      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.BizRulesEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Wonka.MetaData">
+      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.MetaData.dll</HintPath>
+    </Reference>
+    <Reference Include="Wonka.Product">
+      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.Product.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
