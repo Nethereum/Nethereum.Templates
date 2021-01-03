@@ -7,31 +7,9 @@
     <ItemGroup>
         <PackageReference Include="Nethereum.StandardTokenEIP20" Version="3.8.0" />
         <PackageReference Include="Nethereum.Web3" Version="3.8.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="WonkaLibs\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Wonka.BizRulesEngine">
-        <HintPath>WonkaLibs\Wonka.BizRulesEngine.dll</HintPath>
-      </Reference>
-      <Reference Include="Wonka.Eth">
-        <HintPath>WonkaLibs\Wonka.Eth.dll</HintPath>
-      </Reference>
-      <Reference Include="Wonka.IpfsW">
-        <HintPath>WonkaLibs\Wonka.IpfsW.dll</HintPath>
-      </Reference>
-      <Reference Include="Wonka.MetaData">
-        <HintPath>WonkaLibs\Wonka.MetaData.dll</HintPath>
-      </Reference>
-      <Reference Include="Wonka.Product">
-        <HintPath>WonkaLibs\Wonka.Product.dll</HintPath>
-      </Reference>
-      <Reference Include="Wonka.Storage">
-        <HintPath>WonkaLibs\Wonka.Storage.dll</HintPath>
-      </Reference>
+        <PackageReference Include="Wonka.BizRulesEngine" Version="0.1.0" />
+        <PackageReference Include="Wonka.Eth" Version="0.1.0" />
+        <PackageReference Include="Wonka.Storage" Version="0.1.0" />
     </ItemGroup>
     
 </Project>

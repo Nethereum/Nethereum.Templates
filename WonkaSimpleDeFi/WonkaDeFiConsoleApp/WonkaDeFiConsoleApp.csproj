@@ -6,19 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WonkaDeFi\WonkaDeFi.csproj" />
+    <PackageReference Include="Wonka.BizRulesEngine" Version="0.1.0" />
+    <PackageReference Include="Wonka.MetaData" Version="0.1.0" />
+    <PackageReference Include="Wonka.Product" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Wonka.BizRulesEngine">
-      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.BizRulesEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Wonka.MetaData">
-      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.MetaData.dll</HintPath>
-    </Reference>
-    <Reference Include="Wonka.Product">
-      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.Product.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\WonkaDeFi\WonkaDeFi.csproj" />
   </ItemGroup>
 
 </Project>

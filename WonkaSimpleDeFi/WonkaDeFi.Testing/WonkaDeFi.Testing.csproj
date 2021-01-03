@@ -7,6 +7,8 @@
   <ItemGroup>
 
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+
+    <PackageReference Include="Wonka.BizRulesEngine" Version="0.1.0" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.0-beta4-build3742" />
@@ -15,18 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WonkaDeFi\WonkaDeFi.csproj" />
     <ProjectReference Include="..\Nethereum.XUnitEthereumClients\Nethereum.XUnitEthereumClients.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Wonka.BizRulesEngine">
-      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.BizRulesEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Wonka.MetaData">
-      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.MetaData.dll</HintPath>
-    </Reference>
-    <Reference Include="Wonka.Product">
-      <HintPath>..\WonkaDeFi\WonkaLibs\Wonka.Product.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 
