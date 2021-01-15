@@ -1,0 +1,32 @@
+{
+    "author": "Juan Blanco",
+    "classifications": ["Nethereum", "Smart contracts"],
+    "name": "Nethereum ERC20 websocket streaming",
+    "tags": {
+        "language": "C#"
+    },
+    "symbols": {
+        "LibraryName": {
+            "type": "parameter",
+            "datatype": "text",
+            "description": "Renames files containing 'WebSocketStreamingERC20'",
+            "fileRename": "WebSocketStreamingERC20",
+            "replaces": "WebSocketStreamingERC20",
+            "isRequired": false,
+            "defaultValue": "ERC20Streaming"
+        }
+    },
+    "identity": "Nethererum.ERC20WebSocketStreaming",
+    "shortName": "erc20stream",
+    "sourceName": "erc20websocketstraming",
+    "guids": [
+        "{3133878D-33AA-465B-A468-200850EAC35E}",
+        "{22573139-3C34-4943-9056-D72D46B634BB}",
+        "{576244BB-7173-438C-8DE4-4910F4D7A466}"
+    ],
+    "primaryOutputs": [{
+            "path": "WebSocketStreamingERC20\\WebSocketStreamingERC20.csproj"
+        }
+    ],
+    "exclude": ["**/[Bb]in/**", "**/[Oo]bj/**", ".template.config/**/*", "**/*.lock.json"]
+}
