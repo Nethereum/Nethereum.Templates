@@ -1,0 +1,38 @@
+{
+    "author": "Aaron Kendall",
+    "classifications": ["Nethereum", "Wonka", "DeFi"],
+    "name": "Nethereum Default Smart contract Library / Wonka DeFi ERC20 sample",
+    "tags": {
+        "language": "C#"
+    },
+    "symbols": {
+        "ContractLibrary": {
+            "type": "parameter",
+            "datatype": "text",
+            "description": "Renames files containing 'WonkaDeFi'",
+            "fileRename": "WonkaDeFi",
+            "replaces": "WonkaDeFi",
+            "isRequired": true,
+            "defaultValue": "MyWonkaDeFi"
+        }
+    },
+    "identity": "nethererum.wonkadefixunit",
+    "shortName": "wonkadefi",
+    "sourceName": "WonkaDeFi",
+    "guids": [
+        "{3133878D-33AA-465B-A468-200850EAC35E}",
+        "{22573139-3C34-4943-9056-D72D46B634BB}",
+        "{576244BB-7173-438C-8DE4-4910F4D7A466}"
+    ],
+    "primaryOutputs": [{
+            "path": "WonkaDeFi\\WonkaDeFi.csproj"
+        },
+        {
+            "path": "WonkaDeFi.Testing\\WonkaDeFi.Testing.csproj"
+        },
+        {
+            "path": "Nethereum.XUnitEthereumClients\\Nethereum.XUnitEthereumClients.csproj"
+        }
+    ],
+    "exclude": ["**/[Bb]in/**", "**/[Oo]bj/**", ".template.config/**/*", "**/*.lock.json"]
+    }
