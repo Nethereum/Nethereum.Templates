@@ -6,7 +6,7 @@
         "language": "C#"
     },
     "symbols": {
-        "WonkaDeFi": {
+        "ProjectName": {
             "type": "parameter",
             "datatype": "text",
             "description": "Renames files containing 'WonkaDeFi'",
