@@ -12,13 +12,13 @@
             "description": "Renames files containing 'WonkaDeFi'",
             "fileRename": "WonkaDeFi",
             "replaces": "WonkaDeFi",
-            "isRequired": true,
+            "isRequired": false,
             "defaultValue": "MyWonkaDeFi"
         }
     },
-    "identity": "nethererum.wonkadefixunit",
-    "shortName": "wonkadefi",
-    "sourceName": "WonkaDeFi",
+    "identity": "nethererum.wonkadefi",
+    "shortName": "wonkadf",
+    "sourceName": "DeFiWonka",
     "guids": [
         "{3133878D-33AA-465B-A468-200850EAC35E}",
         "{22573139-3C34-4943-9056-D72D46B634BB}",
