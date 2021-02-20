@@ -16,7 +16,7 @@ Template including the project setup for smart contract development including:
 
 * Clone repo
 * Run ```dotnet new -i .\``` in the command line / terminal
-
+* Run ```dotnet new smartcontract --ContractName "YourContractName"```
 
 ## Nuget
 WIP
