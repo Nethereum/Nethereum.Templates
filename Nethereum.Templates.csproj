@@ -7,7 +7,7 @@
     <Title>Nethereum Templates</Title>
     <Authors>Juan Blanco</Authors>
     <Description>Templates to use with Netheruem.</Description>
-    <PackageTags>dotnet-new;templates;nethereum;ethereum;wonka;metamask</PackageTags>
+    <PackageTags>dotnet-new;templates;nethereum;ethereum;metamask;blockchain explorer;Optimism;NFTs;ERC20;smart contract;</PackageTags>
 
     <TargetFramework>netstandard2.0</TargetFramework>
     <IncludeContentInPack>true</IncludeContentInPack>
