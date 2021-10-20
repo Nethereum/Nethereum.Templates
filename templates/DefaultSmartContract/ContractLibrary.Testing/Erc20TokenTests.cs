@@ -31,7 +31,7 @@ namespace ContractLibrary.Testing
         {
 
             var destinationAddress = "0x6C547791C3573c2093d81b919350DB1094707011";
-            //Using ropsten infura if wanted for only a tests
+            //You can connect to Infura directly if wanted using GetInfuraWeb3
             //var web3 = _ethereumClientIntegrationFixture.GetInfuraWeb3(InfuraNetwork.Ropsten);
             var web3 = _ethereumClientIntegrationFixture.GetWeb3();
 
@@ -64,7 +64,7 @@ namespace ContractLibrary.Testing
         {
 
             var destinationAddress = "0x6C547791C3573c2093d81b919350DB1094707011";
-            //Using ropsten infura if wanted for only a tests
+            //Using ropsten infura if wanted for only a single test, as opposed to configuration
             //var web3 = _ethereumClientIntegrationFixture.GetInfuraWeb3(InfuraNetwork.Ropsten);
             var web3 = _ethereumClientIntegrationFixture.GetWeb3();
 
@@ -84,7 +84,7 @@ namespace ContractLibrary.Testing
             var transferFilter = transferEvent.GetFilterBuilder().AddTopic(x => x.To, destinationAddress).Build(tokenService.ContractHandler.ContractAddress,
                 new BlockRange(transferReceipt1.BlockNumber, transferReceipt2.BlockNumber));
          
-            var transferEvents = await transferEvent.GetAllChanges(transferFilter);
+            var transferEvents = await transferEvent.GetAllChangesAsync(transferFilter);
 
             Assert.Equal(2, transferEvents.Count); 
 
@@ -96,8 +96,6 @@ namespace ContractLibrary.Testing
         {
 
             var destinationAddress = "0x6C547791C3573c2093d81b919350DB1094707011";
-            //Using ropsten infura if wanted for only a tests
-            //var web3 = _ethereumClientIntegrationFixture.GetInfuraWeb3(InfuraNetwork.Ropsten);
             var web3 = _ethereumClientIntegrationFixture.GetWeb3();
 
             var erc20TokenDeployment = new ERC20TokenDeployment() { DecimalUnits = 18, TokenName = "TST", TokenSymbol = "TST", InitialAmount = Web3.Convert.ToWei(10000) };

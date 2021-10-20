@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using Nethereum.RPC.Fee1559Suggestions;
 using Nethereum.Signer;
 using Nethereum.Util;
 using Nethereum.Web3;
@@ -81,11 +82,11 @@ namespace ContractLibrary.Testing
         }
 
         [Fact]
-        public async void ShouldTransferWholeBalanceInEther()
+        public async void ShouldTransferWholeBalanceInEtherUsingGasPrice()
         {
             var web3 = _ethereumClientIntegrationFixture.GetWeb3();
             var privateKey = EthECKey.GenerateKey();
-            var newAccount = new Account(privateKey.GetPrivateKey());
+            var newAccount = new Account(privateKey.GetPrivateKey(), EthereumClientIntegrationFixture.ChainId);
             var toAddress = newAccount.Address;
             var transferService = web3.Eth.GetEtherTransferService();
 
@@ -95,12 +96,44 @@ namespace ContractLibrary.Testing
             var balance = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
             Assert.Equal(1000, Web3.Convert.FromWei(balance));
 
+            var gasPriceInGwei = 1.3M;
             var totalAmountBack =
-                await transferService.CalculateTotalAmountToTransferWholeBalanceInEther(toAddress, 2);
+                await transferService.CalculateTotalAmountToTransferWholeBalanceInEtherAsync(toAddress,gasPriceInGwei);
 
             var web32 = new Web3(newAccount, web3.Client);
             var receiptBack = await web32.Eth.GetEtherTransferService()
-                .TransferEtherAndWaitForReceiptAsync(EthereumClientIntegrationFixture.AccountAddress, totalAmountBack, 2);
+                .TransferEtherAndWaitForReceiptAsync(EthereumClientIntegrationFixture.AccountAddress, totalAmountBack, gasPriceInGwei);
+
+            var balanceFrom = await web32.Eth.GetBalance.SendRequestAsync(toAddress);
+            Assert.Equal(0, Web3.Convert.FromWei(balanceFrom));
+        }
+
+        [Fact]
+        public async void ShouldTransferWholeBalanceInEtherUsing1559MaxPriorityFeeAndMedianPriorityStrategy()
+        {
+            var web3 = _ethereumClientIntegrationFixture.GetWeb3();
+            var privateKey = EthECKey.GenerateKey();
+            var newAccount = new Account(privateKey.GetPrivateKey(), EthereumClientIntegrationFixture.ChainId);
+            var toAddress = newAccount.Address;
+            var transferService = web3.Eth.GetEtherTransferService();
+
+            var receipt = await web3.Eth.GetEtherTransferService()
+                .TransferEtherAndWaitForReceiptAsync(toAddress, 1000, 2);
+
+            var balance = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
+            Assert.Equal(1000, Web3.Convert.FromWei(balance));
+
+            // using the Median Priority fee strategy
+            var feeStrategy = new MedianPriorityFeeHistorySuggestionStrategy(web3.Client);
+            var fee = await feeStrategy.SuggestFeeAsync();
+
+            //when calculating the total amount to transfer, we only use the MaxFeePerGas so no crumbs are left
+            var totalAmountBack =
+                await transferService.CalculateTotalAmountToTransferWholeBalanceInEtherAsync(toAddress, fee.MaxFeePerGas.Value);
+
+            var web32 = new Web3(newAccount, web3.Client);
+            var receiptBack = await web32.Eth.GetEtherTransferService()
+                .TransferEtherAndWaitForReceiptAsync(EthereumClientIntegrationFixture.AccountAddress, totalAmountBack, fee.MaxFeePerGas.Value, fee.MaxFeePerGas.Value);
 
             var balanceFrom = await web32.Eth.GetBalance.SendRequestAsync(toAddress);
             Assert.Equal(0, Web3.Convert.FromWei(balanceFrom));
